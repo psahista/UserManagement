@@ -1,0 +1,104 @@
+<div class="container">
+    <form (ngSubmit)="formName.form.valid && postUser()" #formName="ngForm">
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label for="fname">Name</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <input type="text" autocomplete="off" name="name" [(ngModel)]="model.name" #name="ngModel" placeholder="name" required>
+                <div *ngIf="formName.submitted && name.invalid" class="invalid-feedback">
+                    <div *ngIf="name.errors.required">Name is required</div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label for="fname">Email</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <input type="text" autocomplete="off" placeholder="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" [(ngModel)]="model.email" #email="ngModel" required>
+                <div *ngIf="formName.submitted && email.invalid" class="invalid-feedback">
+                    <div *ngIf="email.errors.required">Email is required</div>
+                    <div *ngIf="email.errors.pattern">Please Provide a Valid Email</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label for="fname">Upload Image</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <input type="file" id="uploadImage" name="image" [(ngModel)]="model.image" (change)="getBase64($event);">
+            </div>
+        </div>
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label for="fname">Phone Number</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <input type="number" name="phone" autocomplete="off" placeholder="phone number" pattern="^((\\+91-?)|0)?[0-9]{10}$" name="phone" [(ngModel)]="model.phoneNo" #phone="ngModel" required>
+                <div *ngIf="formName.submitted && phone.invalid" class="invalid-feedback">
+                    <div *ngIf="phone.errors.required">Phone Number is required</div>
+                    <div *ngIf="phone.errors.pattern">Please Provide a Valid Phone Number</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label for="fname">Location</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <input type="text" name="latitude" [(ngModel)]="model.latitude" autocomplete="off" placeholder="Latitude">
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <input type="text" name="longitude" [(ngModel)]="model.longitude" autocomplete="off" placeholder="Longitude">
+            </div>
+        </div>
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label for="fname">Address</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <input type="text" name="address" [(ngModel)]="model.address" placeholder="address">
+            </div>
+        </div>  
+        <button class="btn btn-success">Submit</button>
+</form>
+<!-- <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+    <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map> -->
+  <!-- <agm-map style="height: 300px;" [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">  
+    <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>  
+          </agm-map>  -->
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">User</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone No</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of userList;let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>
+               <img [src]="item.image" style="width: 60px; height: 60px; border-radius: 50%;"> 
+            </td>
+            <td (click)="userDetails(item.id)" style="cursor: pointer;">
+                {{item.name}}
+            </td>
+            <td>{{item.email}}</td>
+            <td>{{item.phone}}</td>
+            <td>{{item.address}}</td>
+          </tr>
+          </tbody>
+          </table>
+</div>

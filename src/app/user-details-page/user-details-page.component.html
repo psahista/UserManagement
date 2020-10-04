@@ -1,0 +1,27 @@
+<div class="contain">
+<div class="card">
+    <div class="card-body">
+        <img [src]="details.image" style="width: 200px; height: 200px; border-radius: 50%;">
+    <h3> Hi {{details.name}} </h3>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <h5>Email:</h5>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <p>{{details.email}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <h5>Phone number:</h5>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <p>{{details.phone}}</p>
+        </div>
+    </div>
+    <agm-map style="height: 300px;" [latitude]="details.latitude" [longitude]="details.longitude" [zoom]="zoom" (mapClick)="mapClicked($event)">  
+        <agm-marker  [latitude]="details.latitude" [longitude]="details.longitude"></agm-marker>  
+              </agm-map>
+    </div>
+  </div>
+</div>
